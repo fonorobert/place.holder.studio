@@ -1,0 +1,15 @@
+{{ define "main" }}
+<main class="notes list">
+  <h1>{{ .Title }}</h1>
+  {{ .Content }}
+  {{ range .Pages }}
+    <article>
+      <h2><a href="{{ .RelPermalink }}">{{ .LinkTitle }}</a></h2>
+      {{ $dateMachine := .Date | time.Format "2006-01-02T15:04:05-07:00" }}
+      {{ $dateHuman := .Date | time.Format "2006-01-02" }}
+      <time datetime="{{ $dateMachine }}">{{ $dateHuman }}</time>
+      <p>{{ .Summary }}</p>
+    </article>
+  {{ end }}
+</main>
+{{ end }}

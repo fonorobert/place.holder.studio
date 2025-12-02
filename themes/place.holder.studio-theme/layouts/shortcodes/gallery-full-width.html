@@ -1,0 +1,46 @@
+{{ $params := .Params }}
+{{ $paramslen := len $params }}
+
+{{ $delim := " :: "}}
+ 
+<section class="gallery full-width" id="gallery-{{ .Get 0 }}">
+{{ range $index, $param := .Params }}
+    {{ if not (le $index 0) }}
+        {{ $arg := split $param $delim }}
+        {{ $src := (print "/images/" (index $arg 0)) }}
+        {{ $caption := index $arg 1 }}
+        {{ $image := resources.Get $src }}
+        {{ $thumbnail := $image.Fit site.Params.imagesizes.thumb }}
+        {{ $fullsize := $image.Fit site.Params.imagesizes.full }}
+            
+        
+            <figure class="item">
+                <a href="{{ $fullsize.RelPermalink }}">
+                    <img src="{{ $fullsize.RelPermalink }}" title="{{ $caption }}">
+                </a>
+                {{ if $caption }}
+                <figcaption>{{ $caption }}</figcaption>
+                {{ end }}
+            </figure>
+    {{ end }}
+ 
+{{ end }}
+</section>
+
+
+<script type="text/javascript" src="/js/simplelightbox/simple-lightbox.min.js">
+</script>
+<script type="text/javascript">
+    var lightbox = new SimpleLightbox('#gallery-{{ .Get 0 }} a', { 
+        animationSpeed: 125,
+        fadeSpeed: 125,
+        animationSlide: false,
+        loop: false,
+        scrollZoom: false,
+        uniqueImages: false,
+        captionPosition: "bottom",
+        overlayOpacity: 0.95,
+        heightRatio: 0.95,
+        widthRatio: 0.95
+    });
+</script>

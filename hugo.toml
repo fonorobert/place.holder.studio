@@ -1,0 +1,4 @@
+baseURL = 'https://place.holder.studio/'
+languageCode = 'en-US'
+title = '*placeholder*'
+theme = 'place.holder.studio-theme'
